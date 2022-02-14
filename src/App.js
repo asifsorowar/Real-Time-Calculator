@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
-import Card from "./components/Card";
-import From from "./components/Form";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import Modal from "./components/Modal";
 import { io } from "socket.io-client";
 import { types } from "./reducer/reducer";
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
-
+import Card from "./components/Card";
+import From from "./components/Form";
+import Modal from "./components/Modal";
 import {
   createCalculation,
   getCalculations,
 } from "./service/calculatorService";
 import { useStateProvider } from "./reducer/provider";
+import Loader from "./components/Loader";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 let offset = 0;
 let checkAll = false;
@@ -166,52 +167,7 @@ function App() {
                         )}
                       </Draggable>
                     ))}
-                    {loadMore && (
-                      <div className="w-full flex justify-center items-center mt-3">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-10 w-10"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          />
-                        </svg>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-10 w-10"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          />
-                        </svg>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-10 w-10"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          />
-                        </svg>
-                      </div>
-                    )}
+                    <Loader load={loadMore} />
                   </div>
                 )}
               </Droppable>
@@ -229,12 +185,12 @@ function App() {
           </div>
         </div>
       </div>
-      {isModal && (
-        <Modal
-          selectedItem={selectedCalculation}
-          onCancel={() => setIsModal((current) => !current)}
-        />
-      )}
+
+      <Modal
+        selectedItem={selectedCalculation}
+        isLoad={isModal}
+        onCancel={() => setIsModal((current) => !current)}
+      />
     </div>
   );
 }
