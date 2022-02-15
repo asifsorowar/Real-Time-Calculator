@@ -27,7 +27,7 @@ router.post("/", limiter(), async (req, res) => {
     if (file.size > process.env.FILE_SIZE)
       return res
         .status(400)
-        .send(`Image must be less then ${process.env.FILE_SIZE / 1000000} MB`);
+        .send(`File must be less then ${process.env.FILE_SIZE} byte`);
     file.name = `txt_${Date.now()}${path.parse(file.name).ext}`;
 
     let filePath = `${path.parse(__dirname).dir}${
