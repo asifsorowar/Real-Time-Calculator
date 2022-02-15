@@ -58,7 +58,7 @@ function App() {
   };
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8800");
+    socket.current = io(process.env.REACT_APP_SOCKET_API_URL);
     setLoadMore(true);
     getAllCalculations();
     setLoadMore(false);
