@@ -22,6 +22,8 @@
 
   > npm i
 
+- set client host in _CLIENT_ variable from _config/config.env_
+
 - Finally
 
   > npm run dev
@@ -52,6 +54,8 @@
 - First
 
   > npm i
+
+- set backend host in _REACT_APP_API_URL_ variable from _.env.development_
 
 - Finally
 
