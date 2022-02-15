@@ -31,6 +31,7 @@ function App() {
   });
   const [loader, setLoader] = useState(false);
   const [isModal, setIsModal] = useState(false);
+  const [showFile, setShowFile] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const socket = useRef();
 
@@ -112,6 +113,7 @@ function App() {
 
   const handleSeeInput = (item) => {
     setIsModal((current) => !current);
+    setShowFile(true);
     dispatch({
       type: types.add_selectedCalculation,
       selectedCalculation: item,
@@ -130,7 +132,7 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-500 w-screen h-screen flex justify-center items-center">
+    <div className="bg-gray-500 w-screen h-screen flex flex-col justify-center items-center">
       <ToastContainer />
       <div className="container h-5/6 w-11/12 lg:w-2/6 lg:h-11/12 bg-gray-200 border-gray-700 border-2">
         <div className="container flex flex-col h-full">
@@ -138,9 +140,20 @@ function App() {
             className="overflow-y-auto grow border-b-2 border-gray-700"
             onScroll={handleScroll}
           >
-            <h1 className="text-xl font-bold p-2 sticky top-0 bg-gray-200">
-              Total results: {calculations.length}
-            </h1>
+            <div className="container flex justify-between items-center p-2 sticky top-0 bg-gray-200">
+              <h1 className="text-xl font-bold">
+                Total results: {calculations.length}
+              </h1>
+              <button
+                onClick={() => {
+                  setIsModal((current) => !current);
+                  setShowFile(false);
+                }}
+                className="mr-2 rounded-2xl border-2 border-gray-500 text-gray-700 p-1 px-2 md:p-1.5 md:px-5 hover:bg-white"
+              >
+                Instruction
+              </button>
+            </div>
 
             <DragDropContext>
               <Droppable droppableId="cards">
@@ -189,6 +202,7 @@ function App() {
       <Modal
         selectedItem={selectedCalculation}
         isLoad={isModal}
+        showFile={showFile}
         onCancel={() => setIsModal((current) => !current)}
       />
     </div>

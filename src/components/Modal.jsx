@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ selectedItem, onCancel, isLoad }) => {
+const Modal = ({ selectedItem, onCancel, isLoad, showFile }) => {
   return (
     isLoad && (
       <div className="absolute top-50% left-50% h-full w-full lg:h-5/6 lg:w-5/6 bg-white flex justify-center items-center">
@@ -20,13 +20,58 @@ const Modal = ({ selectedItem, onCancel, isLoad }) => {
           />
         </svg>
 
-        <iframe
-          src={`${process.env.REACT_APP_API_URL}/files/${selectedItem.file}`}
-          title="seeFile"
-          frameBorder="0"
-          height="200"
-          width="30%"
-        ></iframe>
+        {showFile ? (
+          <iframe
+            src={`${process.env.REACT_APP_API_URL}/files/${selectedItem.file}`}
+            title="seeFile"
+            frameBorder="0"
+            height="500"
+            width="60%"
+          ></iframe>
+        ) : (
+          <div className="text-left text-gray-600">
+            <h1 className="text-xl font-bold mb-2">SAMPLE INPUT TEXT FILE:</h1>
+            <ul className="list-disc ml-9">
+              <li className="text-lg">
+                <a
+                  href={`${process.env.REACT_APP_API_URL}/files/sample1.txt`}
+                  target="_blank"
+                  className="text-cyan-400 hover:underline"
+                >
+                  calculation1.txt
+                </a>
+              </li>
+              <li className="text-lg mb-2">
+                <a
+                  href={`${process.env.REACT_APP_API_URL}/files/sample2.txt`}
+                  target="_blank"
+                  className="text-cyan-400 hover:underline"
+                >
+                  calculation2.txt
+                </a>
+              </li>
+            </ul>
+
+            <h1 className="text-lg font-bold mb-2">
+              VALID CALCULATION FORMAT:
+            </h1>
+            <ul className="list-disc ml-9">
+              <li className="text-lg">1+8+3+9-8+0/2</li>
+              <li className="text-lg">.0574*75-41/81</li>
+              <li className="text-lg">-10-20</li>
+              <li className="text-lg">10+-30++40--30.05/2</li>
+              <li className="text-lg">10+- 30++40 -30.05 /2</li>
+            </ul>
+            <h1 className="text-lg font-bold mb-2 mt-5">
+              INVALID CALCULATION FORMAT:
+            </h1>
+            <ul className="list-disc ml-9">
+              <li className="text-lg">10+asdw4-3/2</li>
+              <li className="text-lg">*10+-3//2</li>
+              <li className="text-lg">-10**20</li>
+            </ul>
+          </div>
+        )}
       </div>
     )
   );

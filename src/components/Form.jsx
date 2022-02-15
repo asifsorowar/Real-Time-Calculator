@@ -49,7 +49,7 @@ const From = ({ formInputs, onChange, handleSubmit, loader }) => {
       <div className="flex items-center h-100% w-100% mt-2">
         <button
           type="submit"
-          className="rounded-2xl border-2 border-gray-500 text-gray-700 p-1 px-2 md:p-1.5 md:px-5"
+          className="rounded-2xl border-2 border-gray-500 text-gray-700 p-1 px-2 md:p-1.5 md:px-5 hover:bg-white"
           disabled={loader}
         >
           Calculate
