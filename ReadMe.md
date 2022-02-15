@@ -22,7 +22,7 @@
 
   > npm i
 
-- set client host in _CLIENT_ variable from _config/config.env_
+- set client host in _CLIENT_ variable from _config/config.env_ Default: http://localhost:3000
 
 - Finally
 
@@ -55,7 +55,8 @@
 
   > npm i
 
-- set backend host in _REACT_APP_API_URL_ variable from _.env.development_
+- set backend host in _REACT_APP_API_URL_ variable from _.env.development_. Default: http://localhost:4000
+- set backend host in _REACT_APP_SOCKET_API_URL_ variable from _.env.development_ Default: ws://localhost:8800
 
 - Finally
 
