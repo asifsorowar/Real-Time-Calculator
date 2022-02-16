@@ -101,13 +101,13 @@ function App() {
     try {
       data = await createCalculation(formInputs);
       if (data.data.result) socket.current.emit("setUpdate", data.data);
-      setFormInputs({ title: "", file: "" });
     } catch (error) {
       if (error.response && error.response.status === 400) {
         toast.error(error.response.data);
         console.log(error.response.data);
       }
     }
+    setFormInputs({ file: "", title: "" });
     setLoader((current) => !current);
   };
 

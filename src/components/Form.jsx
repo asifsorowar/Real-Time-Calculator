@@ -23,6 +23,7 @@ const From = ({ formInputs, onChange, handleSubmit, loader }) => {
             className="opacity-0 font-normal w-full h-full bg-red-400 absolute top-0 left-0  cursor-pointer"
             name="file"
             onChange={(e) => onChange(e.target)}
+            onClick={(e) => (e.target.value = null)}
           ></input>
           <svg
             xmlns="http://www.w3.org/2000/svg"
