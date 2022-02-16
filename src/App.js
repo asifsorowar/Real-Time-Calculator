@@ -132,80 +132,85 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-500 w-screen h-screen flex flex-col justify-center items-center">
+    <>
       <ToastContainer />
-      <div className="container h-5/6 w-11/12 lg:w-2/6 lg:h-11/12 bg-gray-200 border-gray-700 border-2">
-        <div className="container flex flex-col h-full">
-          <div
-            className="overflow-y-auto grow border-b-2 border-gray-700"
-            onScroll={handleScroll}
-          >
-            <div className="container flex justify-between items-center p-2 sticky top-0 bg-gray-200">
-              <h1 className="text-xl font-bold">
-                Total results: {calculations.length}
-              </h1>
-              <button
-                onClick={() => {
-                  setIsModal((current) => !current);
-                  setShowFile(false);
-                }}
-                className="mr-2 rounded-2xl border-2 border-gray-500 text-gray-700 p-1 px-2 md:p-1.5 md:px-5 hover:bg-white"
-              >
-                Instruction
-              </button>
+      <div className="bg-gray-500 w-screen h-screen flex flex-col justify-center items-center">
+        <div className="container h-5/6 w-11/12 lg:w-2/6 lg:h-11/12 bg-gray-200 border-gray-700 border-2">
+          <div className="container flex flex-col h-full">
+            <div
+              className="overflow-y-auto grow border-b-2 border-gray-700"
+              onScroll={handleScroll}
+            >
+              <div className="container flex justify-between items-center p-2 sticky top-0 bg-gray-200">
+                <h1 className="text-xl font-bold">
+                  Total results: {calculations.length}
+                </h1>
+                <button
+                  onClick={() => {
+                    setIsModal((current) => !current);
+                    setShowFile(false);
+                  }}
+                  className="mr-2 rounded-2xl border-2 border-gray-500 text-gray-700 p-1 px-2 md:p-1.5 md:px-5 hover:bg-white"
+                >
+                  Instruction
+                </button>
+              </div>
+
+              <DragDropContext>
+                <Droppable droppableId="cards">
+                  {(provided) => (
+                    <div
+                      className="container p-2"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {calculations.map((item, index) => (
+                        <Draggable
+                          key={item._id}
+                          draggableId={item._id}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <Card
+                                item={item}
+                                handleSeeInput={handleSeeInput}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      <Loader load={loadMore} />
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
 
-            <DragDropContext>
-              <Droppable droppableId="cards">
-                {(provided) => (
-                  <div
-                    className="container p-2"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {calculations.map((item, index) => (
-                      <Draggable
-                        key={item._id}
-                        draggableId={item._id}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <Card item={item} handleSeeInput={handleSeeInput} />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    <Loader load={loadMore} />
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </div>
-
-          <div className="container p-2">
-            <h1 className="text-xl font-bold pb-2">Input</h1>
-            <From
-              formInputs={formInputs}
-              onChange={handleChange}
-              handleSubmit={handleSubmit}
-              loader={loader}
-            />
+            <div className="container p-2">
+              <h1 className="text-xl font-bold pb-2">Input</h1>
+              <From
+                formInputs={formInputs}
+                onChange={handleChange}
+                handleSubmit={handleSubmit}
+                loader={loader}
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <Modal
-        selectedItem={selectedCalculation}
-        isLoad={isModal}
-        showFile={showFile}
-        onCancel={() => setIsModal((current) => !current)}
-      />
-    </div>
+        <Modal
+          selectedItem={selectedCalculation}
+          isLoad={isModal}
+          showFile={showFile}
+          onCancel={() => setIsModal((current) => !current)}
+        />
+      </div>
+    </>
   );
 }
 

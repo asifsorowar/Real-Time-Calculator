@@ -5,10 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { reducer, initialState } from "./reducer/reducer";
 import { Provider } from "./reducer/provider";
+import SEO from "./components/Seo";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider initialState={initialState} reducer={reducer}>
+      <SEO title="Home" />
       <App />
     </Provider>
   </React.StrictMode>,
